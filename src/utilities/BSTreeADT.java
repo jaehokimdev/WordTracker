@@ -3,6 +3,7 @@
  */
 package utilities;
 
+import exception.*;
 import java.io.*;
 
 import exceptions.TreeException;

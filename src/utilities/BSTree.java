@@ -5,12 +5,6 @@ import exception.TreeException;
 public class BSTree<E> implements BSTreeADT {
 
 	@Override
-	public BSTreeNode getRoot() throws TreeException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public int getHeight() {
 		// TODO Auto-generated method stub
 		return 0;
@@ -41,12 +35,6 @@ public class BSTree<E> implements BSTreeADT {
 	}
 
 	@Override
-	public BSTreeNode search(Comparable entry) throws TreeException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public boolean add(Comparable newEntry) throws NullPointerException {
 		// TODO Auto-generated method stub
 		return false;
@@ -69,5 +57,6 @@ public class BSTree<E> implements BSTreeADT {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	
 }
