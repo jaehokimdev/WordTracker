@@ -6,9 +6,6 @@ package utilities;
 import exception.*;
 import java.io.*;
 
-import exceptions.TreeException;
-import referenceBasedTreeImplementation.BSTreeNode;
-
 /**
  * @author dwatson, kitty
  * @version 1.1
