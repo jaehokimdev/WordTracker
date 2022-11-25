@@ -138,6 +138,7 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 			}
 		}
 		
+		size++;
 		return true;
 	}
 
@@ -185,7 +186,7 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 		Iterator<E> it = new Iterator<E>() {
 			
 			private Stack<BSTreeNode<E>> nodeStack = new Stack<BSTreeNode<E>>();
-			private BSTreeNode<E> current = root;
+			private BSTreeNode<E> current = root;			
 
 			@Override
 			public boolean hasNext() {
@@ -195,22 +196,25 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 
 			@Override
 			public E next() throws NoSuchElementException {
-				BSTreeNode<E> nextNode = null;
-				
-				nodeStack.push(current);
-				
-				if (!nodeStack.isEmpty()) {
-					nextNode = nodeStack.pop();
-					
-					if (current.hasRightChild()) {
-						nodeStack.push(nextNode.getRight());
-					}
-					if (current.hasLeftChild()) {
-						nodeStack.push(nextNode.getLeft());
-					}
+								
+				if (nodeStack.isEmpty()) {
+					nodeStack.push(root);
 				}
 				
-				return nextNode.getElement();
+				if (!nodeStack.isEmpty()) {
+					current = nodeStack.pop();
+					
+					if (current.hasRightChild()) {
+						nodeStack.push(current.getRight());
+					}
+					if (current.hasLeftChild()) {
+						nodeStack.push(current.getLeft());
+					}
+				} else {
+					throw new NoSuchElementException();
+				}
+				
+				return current.getElement();
 			}
 			
 		};
@@ -220,7 +224,25 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 
 	@Override
 	public Iterator<E> postorderIterator() {
-		// TODO Auto-generated method stub
+		Iterator<E> it = new Iterator<E>() {
+			
+			private Stack<BSTreeNode<E>> nodeStack = new Stack<BSTreeNode<E>>();
+			private BSTreeNode<E> current = root;
+
+			@Override
+			public boolean hasNext() {
+				
+				return !nodeStack.isEmpty() || (current != null);
+			}
+
+			@Override
+			public E next() throws NoSuchElementException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+		
+		};
+		
 		return null;
 	}
 

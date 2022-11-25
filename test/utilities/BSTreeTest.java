@@ -144,7 +144,8 @@ class BSTreeTest {
 	 */
 	@Test
 	void testAdd() {
-		fail("Not yet implemented");
+		assertEquals(true, myBSTree.add(300));
+		assertEquals(12, myBSTree.size());
 	}
 
 	/**
