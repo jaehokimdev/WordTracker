@@ -226,24 +226,42 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 	public Iterator<E> postorderIterator() {
 		Iterator<E> it = new Iterator<E>() {
 			
-			private Stack<BSTreeNode<E>> nodeStack = new Stack<BSTreeNode<E>>();
+			private Stack<BSTreeNode<E>> firstNodeStack = new Stack<BSTreeNode<E>>();
+			private Stack<BSTreeNode<E>> secondNodeStack = new Stack<BSTreeNode<E>>();
 			private BSTreeNode<E> current = root;
-
+			
 			@Override
 			public boolean hasNext() {
 				
-				return !nodeStack.isEmpty() || (current != null);
+				return !secondNodeStack.isEmpty() || (current != null);
 			}
 
 			@Override
 			public E next() throws NoSuchElementException {
-				// TODO Auto-generated method stub
-				return null;
+				
+				if (secondNodeStack.isEmpty()) {
+					firstNodeStack.push(root);
+				}
+				
+				while (!firstNodeStack.isEmpty()) {
+					
+					BSTreeNode<E> prev = firstNodeStack.pop();					
+					secondNodeStack.push(prev);
+					
+					if (prev.hasLeftChild()) {
+						firstNodeStack.push(prev.getLeft());
+					}
+					if (prev.hasRightChild()) {
+						firstNodeStack.push(prev.getRight());
+					}
+				}
+				
+				return secondNodeStack.pop().getElement();
 			}
 		
 		};
 		
-		return null;
+		return it;
 	}
 
 	

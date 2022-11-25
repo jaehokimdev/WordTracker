@@ -48,22 +48,6 @@ class BSTreeTest {
 	}
 
 	/**
-	 * Test method for {@link utilities.BSTree#BSTree()}.
-	 */
-	@Test
-	void testBSTree() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link utilities.BSTree#BSTree(java.lang.Comparable)}.
-	 */
-	@Test
-	void testBSTreeE() {
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link utilities.BSTree#getRoot()}.
 	 * @throws TreeException 
 	 */
