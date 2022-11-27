@@ -8,13 +8,15 @@ public class WordTracker {
 	public WordTracker(String inputFile, String options) {
 		this.inputFileName = inputFile;
 		this.option = options;
-		System.out.println("2");
 	}
 	
 	public WordTracker(String inputFile, String options, String outputFile) {
 		this.inputFileName = inputFile;
 		this.option = options;
 		this.outputFileName = outputFile;
-		System.out.println("3");
+	}
+	
+	public void readWordFromText() {
+		
 	}
 }
