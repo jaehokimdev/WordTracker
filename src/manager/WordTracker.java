@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.StringTokenizer;
 
 import wordDomain.Word;
@@ -30,7 +33,7 @@ public class WordTracker {
 		populateFromTextFile(inputFile);
 	}
 	
-	public static void deserializeWordFromFile()
+	public static void deserializeFromSerFile()
 	{
 		try
 		{
@@ -61,15 +64,31 @@ public class WordTracker {
 	public void populateFromTextFile(String inputFile) {
 		try {
 			BufferedReader file = new BufferedReader(new FileReader(inputFile));
-		
-			String line = file.readLine();
 			
-			StringTokenizer st = new StringTokenizer(line);
-									
-			while (st.hasMoreTokens()) {
-				System.out.println(st.nextToken());
+			String str = "";
+			
+			int wordCount = 0;
+						
+			int lineNumber = 0;
+			
+			List<String> words = new ArrayList<>();
+
+			while ((str = file.readLine()) != null) {
+				if (!str.equals("")) {
+					lineNumber++;
+				}
+				str = str.replaceAll("'", "");
+				StringTokenizer st = new StringTokenizer(str, "!,.;\"- ");
+				
+				while (st.hasMoreTokens()) {
+					String word = st.nextToken();
+					words.add(word);
+					wordCount++;
+				}
 			}
-			
+			System.out.println(words);
+			System.out.println(lineNumber);
+			System.out.println(wordCount);
 	
 			file.close();
 		
