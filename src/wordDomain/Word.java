@@ -1,10 +1,16 @@
 package wordDomain;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class Word {
+public class Word implements Comparable<Word>, Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	private String word;
 	private LinkedList<Location> locations;
+	
+	public Word() {
+	}
 	
 	public Word(String word, LinkedList<Location> locations) {
 		this.word = word;
@@ -24,11 +30,11 @@ public class Word {
 		this.locations = locations;
 	}
 	
-	public int compareTo(Word otherWord) {
+	public int compareTo(Word other) {
 		
-		if (this.word.compareToIgnoreCase(otherWord.getWord()) > 0) {
+		if (this.word.compareToIgnoreCase(other.getWord()) > 0) {
 			return 1;
-		} else if (this.word.equalsIgnoreCase(otherWord.getWord())) {
+		} else if (this.word.equalsIgnoreCase(other.getWord())) {
 			return 0;
 		} else {
 			return -1;

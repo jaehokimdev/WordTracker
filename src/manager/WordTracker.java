@@ -8,9 +8,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import utilities.BSTree;
+import wordDomain.Location;
 import wordDomain.Word;
 
 public class WordTracker {
@@ -18,11 +21,14 @@ public class WordTracker {
 	private String option;
 	private String outputFileName;
 	private static int N;
+	private BSTree<Word> BSTreeWord = new BSTree<Word>();
+	private static final String serFile = "res/repository.ser";
 	
 	public WordTracker(String inputFile, String options) {
 		this.inputFileName = inputFile;
 		this.option = options;
 		
+		deserializeFromFile();
 		populateFromTextFile(inputFile);
 	}
 	
@@ -30,15 +36,17 @@ public class WordTracker {
 		this.inputFileName = inputFile;
 		this.option = options;
 		this.outputFileName = outputFile;
+		
+		deserializeFromFile();
 		populateFromTextFile(inputFile);
 	}
 	
-	public static void deserializeFromSerFile()
+	public static void deserializeFromFile()
 	{
 		try
 		{
 			ObjectInputStream ois = new ObjectInputStream(
-						new FileInputStream("res/repository.ser"));
+						new FileInputStream(serFile));
 			
 			for(int i = 0; i < N; i++)
 			{
@@ -49,7 +57,7 @@ public class WordTracker {
 		}
 		catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
+			System.out.println("repository.ser file not found");
 		}
 		catch (IOException e)
 		{
@@ -71,8 +79,6 @@ public class WordTracker {
 						
 			int lineNumber = 0;
 			
-			List<String> words = new ArrayList<>();
-
 			while ((str = file.readLine()) != null) {
 				if (!str.equals("")) {
 					lineNumber++;
@@ -82,11 +88,15 @@ public class WordTracker {
 				
 				while (st.hasMoreTokens()) {
 					String word = st.nextToken();
-					words.add(word);
+					LinkedList<Location> location = new LinkedList<>();
+					location.add(new Location(inputFile, lineNumber));
+					Word newWord = new Word(word, location);
+					BSTreeWord.add(newWord);
+				
 					wordCount++;
 				}
 			}
-			System.out.println(words);
+
 			System.out.println(lineNumber);
 			System.out.println(wordCount);
 	

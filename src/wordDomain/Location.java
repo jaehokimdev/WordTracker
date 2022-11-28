@@ -4,6 +4,9 @@ public class Location {
 	private String fileName;
 	private int lineNumber;
 	
+	public Location() {
+	}
+	
 	public Location(String fileName, int lineNumber) {
 		super();
 		this.fileName = fileName;
