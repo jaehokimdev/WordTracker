@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class BSTreeNode<E> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 103125396562901601L;
 
 	private E element;
 	private BSTreeNode<E> left, right;

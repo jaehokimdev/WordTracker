@@ -7,7 +7,7 @@ import exception.TreeException;
 
 public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 103125396562901601L;
 
 	private BSTreeNode<E> root;
 	

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 public class Word implements Comparable<Word>, Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 103125396562901601L;
 	
 	private String word;
 	private LinkedList<Location> locations;

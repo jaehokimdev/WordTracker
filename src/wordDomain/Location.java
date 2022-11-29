@@ -1,6 +1,9 @@
 package wordDomain;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable{
+	private static final long serialVersionUID = 103125396562901601L;
 	private String fileName;
 	private int lineNumber;
 	
