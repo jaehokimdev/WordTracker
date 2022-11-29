@@ -29,5 +29,8 @@ public class Location {
 		this.lineNumber = lineNumber;
 	}
 	
-	
+	public String toString() {
+		return "File name: " + fileName + "  Line number: " + lineNumber;
+		
+	}
 }

@@ -60,24 +60,24 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 
 	@Override
 	public boolean contains(Comparable entry) throws TreeException {
-		if (root == null) {
-			throw new TreeException();
-		}
-		
+
 		BSTreeNode<E> current = root;
 		
 		int compareResult;
-				
-		while (!current.isLeaf()) {
-			compareResult = entry.compareTo(current.getElement());
+		try {
+			while (!current.isLeaf()) {
+				compareResult = entry.compareTo(current.getElement());
 
-			if (compareResult < 0) {
-				current = current.getLeft();
-			}else if (compareResult > 0) {
-				current = current.getRight();
-			}else {
-				return true;
+				if (compareResult < 0) {
+					current = current.getLeft();
+				}else if (compareResult > 0) {
+					current = current.getRight();
+				}else {
+					return true;
+				}
 			}
+		} catch (Exception e) {
+			
 		}
 		
 		return false;
@@ -85,26 +85,27 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 
 	@Override
 	public BSTreeNode search(Comparable entry) throws TreeException {
-		if (root == null) {
-			throw new TreeException();
-		}
 		
 		BSTreeNode<E> current = root;
 		
 		int compareResult;
-				
-		while (!current.isLeaf()) {
-			compareResult = entry.compareTo(current.getElement());
-
-			if (compareResult < 0) {
-				current = current.getLeft();
-			}else if (compareResult > 0) {
-				current = current.getRight();
-			}else {
-				return current;
-			}
-		}
 		
+		try {
+			while (!current.isLeaf()) {
+				compareResult = entry.compareTo(current.getElement());
+
+				if (compareResult < 0) {
+					current = current.getLeft();
+				}else if (compareResult > 0) {
+					current = current.getRight();
+				}else {
+					return current;
+				}
+			}
+		} catch (Exception e) {
+			
+		}
+				
 		return null;
 	}
 

@@ -6,13 +6,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.StringTokenizer;
-
+import exception.TreeException;
 import utilities.BSTree;
+import utilities.BSTreeNode;
+import utilities.Iterator;
 import wordDomain.Location;
 import wordDomain.Word;
 
@@ -20,25 +19,28 @@ public class WordTracker {
 	private String inputFileName;
 	private String option;
 	private String outputFileName;
+	private int wordCount = 0;
+	private int lineNumber = 0;
 	private static int N;
 	private BSTree<Word> BSTreeWord = new BSTree<Word>();
 	private static final String serFile = "res/repository.ser";
 	
-	public WordTracker(String inputFile, String options) {
+	public WordTracker(String inputFile, String options) throws TreeException {
 		this.inputFileName = inputFile;
 		this.option = options;
 		
 		deserializeFromFile();
-		populateFromTextFile(inputFile);
+		populateFromTextFile();
+		printWords();
 	}
 	
-	public WordTracker(String inputFile, String options, String outputFile) {
+	public WordTracker(String inputFile, String options, String outputFile) throws TreeException {
 		this.inputFileName = inputFile;
 		this.option = options;
 		this.outputFileName = outputFile;
 		
 		deserializeFromFile();
-		populateFromTextFile(inputFile);
+		populateFromTextFile();
 	}
 	
 	public static void deserializeFromFile()
@@ -69,37 +71,37 @@ public class WordTracker {
 		}
 	}
 	
-	public void populateFromTextFile(String inputFile) {
+	public void populateFromTextFile() throws TreeException {
 		try {
-			BufferedReader file = new BufferedReader(new FileReader(inputFile));
+			BufferedReader file = new BufferedReader(new FileReader(inputFileName));
 			
 			String str = "";
-			
-			int wordCount = 0;
-						
-			int lineNumber = 0;
 			
 			while ((str = file.readLine()) != null) {
 				if (!str.equals("")) {
 					lineNumber++;
 				}
 				str = str.replaceAll("'", "");
-				StringTokenizer st = new StringTokenizer(str, "!,.;\"- ");
+				StringTokenizer st = new StringTokenizer(str, "?()!,.;\"- ");
 				
 				while (st.hasMoreTokens()) {
 					String word = st.nextToken();
 					LinkedList<Location> location = new LinkedList<>();
-					location.add(new Location(inputFile, lineNumber));
+					location.add(new Location(inputFileName, lineNumber));
 					Word newWord = new Word(word, location);
-					BSTreeWord.add(newWord);
+					
+					if (BSTreeWord.contains(newWord)) {
+						BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
+						LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
+						existlocation.add(new Location(inputFileName, lineNumber));
+					} else {
+						BSTreeWord.add(newWord);
+					}
 				
 					wordCount++;
 				}
 			}
 
-			System.out.println(lineNumber);
-			System.out.println(wordCount);
-	
 			file.close();
 		
 		}catch (FileNotFoundException e)
@@ -118,6 +120,35 @@ public class WordTracker {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void printWords() {
+		Iterator<Word> it = BSTreeWord.inorderIterator();
+		
+		if (option.equals("-pf")) {
+			for (int i = 0; i < BSTreeWord.size(); i++) {
+				Word word = it.next();
+				
+				System.out.printf("%-6d%-13s[File name: %s]\n", i, word.getWord(), word.getLocations().get(0).getFileName());
+			}
+		} else if (option.equals("-pl")) {
+			for (int i = 0; i < BSTreeWord.size(); i++) {
+				Word word = it.next();
+				
+				System.out.printf("%-6d%-13s%s\n", i, word.getWord(), word.getLocations());
+			}
+		}else {
+			for (int i = 0; i < BSTreeWord.size(); i++) {
+				Word word = it.next();
+				
+				System.out.printf("%-6d%-13s%s OCCURRENCE: %-3d\n", i, word.getWord(), word.getLocations(), word.getLocations().size());
+			}
+		}
+		
+		System.out.println("------------------------------------------------------------------------------");
+		System.out.println("");
+		System.out.println("Total Line: " + lineNumber);
+		System.out.println("Total Words: " + wordCount);
 	}
 	
 	
