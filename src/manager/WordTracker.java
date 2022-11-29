@@ -120,6 +120,7 @@ public class WordTracker {
 						BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
 						LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
 						existlocation.add(new Location(inputFileName, lineNumber));
+						System.out.println(existlocation.size());
 					} else {
 						BSTreeWord.add(newWord);
 					}
@@ -127,12 +128,13 @@ public class WordTracker {
 					wordCount++;
 				}
 			}
-
+			
 			file.close();
 		
 		}catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
+			System.out.println(inputFileName + " file not found!");
+			System.exit(0);
 		}
 		catch (IOException e)
 		{
@@ -146,6 +148,7 @@ public class WordTracker {
 		{
 			e.printStackTrace();
 		}
+		
 		stop = System.currentTimeMillis();
 		populateFromFileTime = stop - start;
 	}
@@ -159,7 +162,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-13s[File name: %s]\n", i, word.getWord(), word.getLocations().get(0).getFileName());
+				System.out.printf("%-6d%-15s[File name: %s]\n", i + 1, word.getWord(), word.getLocations().get(0).getFileName());
 			}
 		} else if (option.equals("-pl")) {
 			System.out.println("Print in alphabetic order all words along with the corresponding list of files and numbers of the lines in which the word occur.");
@@ -167,7 +170,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-13s%s\n", i, word.getWord(), word.getLocations());
+				System.out.printf("%-6d%-15s%s\n", i + 1, word.getWord(), word.getLocations());
 			}
 		}else {
 			System.out.println("Print in alphabetic order all words along with the corresponding list of files, numbers of the lines in which the word occur and the frequency of occurrence of the words.");
@@ -175,7 +178,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-13s%s OCCURRENCE: %-3d\n", i, word.getWord(), word.getLocations(), word.getLocations().size());
+				System.out.printf("%-6d%-15s%s OCCURRENCE: %-3d\n", i + 1, word.getWord(), word.getLocations(), word.getLocations().size());
 			}
 		}
 		
@@ -211,7 +214,7 @@ public class WordTracker {
 			oos.writeObject(queue);
 			oos.close();
 			
-			System.out.println("Word BSTree was Serialized to res/repository.ser file.");
+			System.out.println("Word BSTree was Serialized in res/repository.ser file.");
 		}
 		catch (FileNotFoundException e)
 		{
