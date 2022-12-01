@@ -116,14 +116,32 @@ public class WordTracker {
 					location.add(new Location(inputFileName, lineNumber));
 					Word newWord = new Word(word, location);
 					
-					if (BSTreeWord.contains(newWord)) {
-						BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
-						LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
-						existlocation.add(new Location(inputFileName, lineNumber));
-						System.out.println(existlocation.size());
-					} else {
-						BSTreeWord.add(newWord);
-					}
+//					try {
+						BSTreeNode<Word> current = BSTreeWord.getRoot();
+						int compareResult;
+						while (!current.isLeaf()) {
+							compareResult = newWord.getWord().compareTo(current.getElement().getWord());
+
+							if (compareResult == 0) {
+								BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
+								LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
+								existlocation.add(new Location(inputFileName, lineNumber));
+							}else {
+								BSTreeWord.add(newWord);
+							}
+						}
+//					} catch (Exception e) {
+//						BSTreeWord.add(newWord);
+//					}
+					
+//					if (BSTreeWord.contains(newWord)) {
+//						BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
+//						LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
+//						existlocation.add(new Location(inputFileName, lineNumber));
+//						System.out.println(existlocation.size());
+//					} else {
+//						BSTreeWord.add(newWord);
+//					}
 				
 					wordCount++;
 				}

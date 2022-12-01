@@ -23,9 +23,6 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 
 	@Override
 	public BSTreeNode getRoot() throws TreeException {
-		if (root == null) {
-			throw new TreeException();
-		}
 		
 		return this.root;
 	}
