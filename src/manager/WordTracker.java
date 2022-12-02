@@ -74,6 +74,7 @@ public class WordTracker {
 			System.out.println("repository.ser file found!");
 			System.out.println("------------------------------------------------------------------------------");
 			existSerFile = true;
+			inputFileName = serFile;
 		}
 		catch (FileNotFoundException e)
 		{
@@ -161,7 +162,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-15s[File name: %s]\n", i + 1, word.getWord(), word.getLocations().get(0).getFileName());
+				System.out.printf("%-6d%-15s[File name: %s]\n", i + 1, word.getWord(), inputFileName);
 			}
 		} else if (option.equals("-pl")) {
 			System.out.println("Print in alphabetic order all words along with the corresponding list of files and numbers of the lines in which the word occur.");
@@ -169,7 +170,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-15s[File name: %s] [Line number: %s \n", i + 1, word.getWord(), word.getLocations().get(0).getFileName(), word.getLocations());
+				System.out.printf("%-6d%-15s[File name: %s] [Line number: %s \n", i + 1, word.getWord(), inputFileName, word.getLocations());
 			}
 		}else {
 			System.out.println("Print in alphabetic order all words along with the corresponding list of files, numbers of the lines in which the word occur and the frequency of occurrence of the words.");
@@ -177,7 +178,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-15s[File name: %s] [Line number: %s [OCCURRENCE: %d]\n", i + 1, word.getWord(), word.getLocations().get(0).getFileName(), word.getLocations(), word.getLocations().size());
+				System.out.printf("%-6d%-15s[File name: %s] [Line number: %s [OCCURRENCE: %d]\n", i + 1, word.getWord(), inputFileName, word.getLocations(), word.getLocations().size());
 			}
 		}
 		
@@ -226,9 +227,5 @@ public class WordTracker {
 		stop = System.currentTimeMillis();
 		serializeToFileTime = stop - start;
 		System.out.println("Serialized time: " + serializeToFileTime);
-	}
-	
-	public void saveResultToFile() {
-		
 	}
 }

@@ -1,1 +1,8 @@
-A b c a b c fake fake
+A 
+b 
+c 
+a 
+b 
+c 
+fake 
+fake

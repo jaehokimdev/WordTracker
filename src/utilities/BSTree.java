@@ -57,83 +57,42 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 	}
 
 	@Override
-	public boolean contains(Comparable entry) throws TreeException {		
-		return containsHelper(root, entry);
-	}
+	public boolean contains(Comparable entry) throws TreeException {
+		BSTreeNode<E> current = root;
 		
-	private boolean containsHelper(BSTreeNode<E> root, Comparable key) {
-		if (root == null) {
-			return false;
-		}
-		int comp = key.compareTo(root.getElement());
-		if (comp == 0) {
-			return true;
-		}
-		if(comp < 0 && root.getLeft() !=null)
-		{	
-			containsHelper(root.getLeft(), key); 
-		}
-		if(comp > 0 && root.getRight() != null)
-		{
-			containsHelper(root.getRight(), key);
+		while (current != null) {
+			switch(entry.compareTo(current.getElement())) {
+				case 1:
+					current = current.getRight();
+					break;
+				case -1:
+					current = current.getLeft();
+					break;
+				default:
+					return true;
+			}
 		}
 		return false;
 	}
 		
-//		int compareResult;
-//		try {
-//			while (!current.isLeaf()) {
-//				compareResult = entry.compareTo(current.getElement());
-//
-//				if (compareResult < 0) {
-//					current = current.getLeft();
-//				}else if (compareResult > 0) {
-//					current = current.getRight();
-//				}else {
-//					return true;
-//				}
-//			}
-//		} catch (Exception e) {
-//			
-//		}
-//		
-//		return false;
-
-
 	@Override
 	public BSTreeNode search(Comparable entry) throws TreeException {
 		
 		BSTreeNode<E> current = root;
 		
-		int compareResult;
-		
-		try {
-			if (current.isLeaf()) {
-				compareResult = entry.compareTo(current.getElement());
-
-				if (compareResult == 0) {
+		while (current != null) {
+			switch(entry.compareTo(current.getElement())) {
+				case 1:
+					current = current.getRight();
+					break;
+				case -1:
+					current = current.getLeft();
+					break;
+				default:
 					return current;
-				} else {
-					return null;
-				}
-			} else {
-				while (!current.isLeaf()) {
-					compareResult = entry.compareTo(current.getElement());
-
-					if (compareResult < 0) {
-						current = current.getLeft();
-					}else if (compareResult > 0) {
-						current = current.getRight();
-					}else {
-						return current;
-					}
-				}
 			}
-			
-		} catch (Exception e) {
-			
 		}
-				
+		
 		return null;
 	}
 
