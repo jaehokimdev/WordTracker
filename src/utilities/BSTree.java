@@ -6,6 +6,15 @@ import java.util.Stack;
 import exception.TreeException;
 import wordDomain.Word;
 
+/**
+ *  BSTree
+ * 
+ * @author Jaeho Kim, Valentin Morales, Ho Chun Sun, Miller Gee
+ * @version 1.1
+ * Created: Nov 15, 2022
+ * Updated: Dec 02, 2022
+ * 
+ */
 public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 	
 	private static final long serialVersionUID = 103125396562901601L;

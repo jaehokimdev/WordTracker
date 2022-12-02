@@ -12,8 +12,13 @@ import org.junit.jupiter.api.Test;
 import exception.TreeException;
 
 /**
- * @author joekim
- *
+ *  Test for BSTree
+ * 
+ * @author Jaeho Kim, Valentin Morales, Ho Chun Sun, Miller Gee
+ * @version 1.1
+ * Created: Nov 15, 2022
+ * Updated: Dec 02, 2022
+ * 
  */
 class BSTreeTest {
 	

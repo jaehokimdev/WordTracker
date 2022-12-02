@@ -18,7 +18,21 @@ import utilities.Iterator;
 import wordDomain.Location;
 import wordDomain.Word;
 
+/**
+ *  WordTracker manager
+ * 
+ * @author Jaeho Kim, Valentin Morales, Ho Chun Sun, Miller Gee
+ * @version 1.1
+ * Created: Nov 15, 2022
+ * Updated: Dec 02, 2022
+ * 
+ */
 public class WordTracker {
+	
+	// Constants
+	private static final String serFile = "res/repository.ser";
+
+	// Attributes
 	private long populateFromFileTime, deserializeFromFileTime, serializeToFileTime;
 	private String inputFileName;
 	private String option;
@@ -27,8 +41,15 @@ public class WordTracker {
 	private int lineNumber = 0;
 	private boolean existSerFile;
 	private BSTree<Word> BSTreeWord = new BSTree<Word>();
-	private static final String serFile = "res/repository.ser";
 	
+	/**
+	 * WordTracker with 2 parameters.
+	 * 
+	 * @param inputFile inputFile name
+	 * @param options print options
+	 * @throws TreeException if the root is empty.
+	 * 
+	 */
 	public WordTracker(String inputFile, String options) throws TreeException {
 		this.inputFileName = inputFile;
 		this.option = options;
@@ -38,6 +59,15 @@ public class WordTracker {
 		serializeWordQueueToFile();
 	}
 	
+	/**
+	 * WordTracker with 3 parameters.
+	 * 
+	 * @param inputFile inputFile name
+	 * @param options print options
+	 * @param outputFile print output file name
+	 * @throws TreeException if the root is empty.
+	 * 
+	 */
 	public WordTracker(String inputFile, String options, String outputFile) throws TreeException {
 		this.inputFileName = inputFile;
 		this.option = options;
@@ -49,6 +79,12 @@ public class WordTracker {
 		System.out.println("Result was saved in " + outputFile + ".");
 	}
 	
+	/**
+	 * Deserialize if ser file exists
+	 * 
+	 * @throws TreeException if the root is empty.
+	 * 
+	 */
 	public void deserializeWordQueueFromFile() throws TreeException
 	{
 		long start, stop;
@@ -95,6 +131,12 @@ public class WordTracker {
 		deserializeFromFileTime = stop - start;
 	}
 	
+	/**
+	 * Populate from text file
+	 * 
+	 * @throws TreeException if the root is empty.
+	 * 
+	 */
 	public void populateFromTextFile() throws TreeException {
 		long start, stop;
 		start = System.currentTimeMillis();
@@ -153,6 +195,11 @@ public class WordTracker {
 		populateFromFileTime = stop - start;
 	}
 	
+	/**
+	 * 
+	 * Print words on console
+	 * 
+	 */
 	public void printWords() {
 		Iterator<Word> it = BSTreeWord.inorderIterator();
 		
@@ -192,6 +239,11 @@ public class WordTracker {
 		}
 	}
 	
+	/**
+	 * 
+	 * Serialize BSTreeWord to ser file
+	 * 
+	 */
 	public void serializeWordQueueToFile() {
 		
 		long start, stop;

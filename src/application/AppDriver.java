@@ -12,8 +12,22 @@ import java.io.PrintStream;
 import exception.TreeException;
 import manager.*;
 
+/**
+ *  WordTracker Application
+ * 
+ * @author Jaeho Kim, Valentin Morales, Ho Chun Sun, Miller Gee
+ * @version 1.1
+ * Created: Nov 15, 2022
+ * Updated: Dec 02, 2022
+ * 
+ */
 public class AppDriver {
-
+	
+	/**
+	 * Main of Application.
+	 * @throws TreeException if the root is empty.
+	 * 
+	 */
 	public static void main(String[] args) throws TreeException, FileNotFoundException {
 		String inputFileName = args[0];
 		String option = args[1];

@@ -2,6 +2,15 @@ package utilities;
 
 import java.io.Serializable;
 
+/**
+ *  BSTreeNode
+ * 
+ * @author Jaeho Kim, Valentin Morales, Ho Chun Sun, Miller Gee
+ * @version 1.1
+ * Created: Nov 15, 2022
+ * Updated: Dec 02, 2022
+ * 
+ */
 public class BSTreeNode<E> implements Serializable {
 
 	private static final long serialVersionUID = 103125396562901601L;

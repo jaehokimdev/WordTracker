@@ -3,6 +3,15 @@ package wordDomain;
 import java.io.Serializable;
 import java.util.LinkedList;
 
+/**
+ *  Word class
+ * 
+ * @author Jaeho Kim, Valentin Morales, Ho Chun Sun, Miller Gee
+ * @version 1.1
+ * Created: Nov 15, 2022
+ * Updated: Dec 02, 2022
+ * 
+ */
 public class Word implements Comparable<Word>, Serializable{
 	private static final long serialVersionUID = 103125396562901601L;
 	
