@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Stack;
 
 import exception.TreeException;
+import wordDomain.Word;
 
 public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 	
@@ -56,29 +57,48 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 	}
 
 	@Override
-	public boolean contains(Comparable entry) throws TreeException {
-
-		BSTreeNode<E> current = root;
+	public boolean contains(Comparable entry) throws TreeException {		
+		return containsHelper(root, entry);
+	}
 		
-		int compareResult;
-		try {
-			while (!current.isLeaf()) {
-				compareResult = entry.compareTo(current.getElement());
-
-				if (compareResult < 0) {
-					current = current.getLeft();
-				}else if (compareResult > 0) {
-					current = current.getRight();
-				}else {
-					return true;
-				}
-			}
-		} catch (Exception e) {
-			
+	private boolean containsHelper(BSTreeNode<E> root, Comparable key) {
+		if (root == null) {
+			return false;
 		}
-		
+		int comp = key.compareTo(root.getElement());
+		if (comp == 0) {
+			return true;
+		}
+		if(comp < 0 && root.getLeft() !=null)
+		{	
+			containsHelper(root.getLeft(), key); 
+		}
+		if(comp > 0 && root.getRight() != null)
+		{
+			containsHelper(root.getRight(), key);
+		}
 		return false;
 	}
+		
+//		int compareResult;
+//		try {
+//			while (!current.isLeaf()) {
+//				compareResult = entry.compareTo(current.getElement());
+//
+//				if (compareResult < 0) {
+//					current = current.getLeft();
+//				}else if (compareResult > 0) {
+//					current = current.getRight();
+//				}else {
+//					return true;
+//				}
+//			}
+//		} catch (Exception e) {
+//			
+//		}
+//		
+//		return false;
+
 
 	@Override
 	public BSTreeNode search(Comparable entry) throws TreeException {
@@ -88,17 +108,28 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 		int compareResult;
 		
 		try {
-			while (!current.isLeaf()) {
+			if (current.isLeaf()) {
 				compareResult = entry.compareTo(current.getElement());
 
-				if (compareResult < 0) {
-					current = current.getLeft();
-				}else if (compareResult > 0) {
-					current = current.getRight();
-				}else {
+				if (compareResult == 0) {
 					return current;
+				} else {
+					return null;
+				}
+			} else {
+				while (!current.isLeaf()) {
+					compareResult = entry.compareTo(current.getElement());
+
+					if (compareResult < 0) {
+						current = current.getLeft();
+					}else if (compareResult > 0) {
+						current = current.getRight();
+					}else {
+						return current;
+					}
 				}
 			}
+			
 		} catch (Exception e) {
 			
 		}

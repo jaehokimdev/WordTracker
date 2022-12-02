@@ -115,33 +115,14 @@ public class WordTracker {
 					LinkedList<Location> location = new LinkedList<>();
 					location.add(new Location(inputFileName, lineNumber));
 					Word newWord = new Word(word, location);
-					
-//					try {
-						BSTreeNode<Word> current = BSTreeWord.getRoot();
-						int compareResult;
-						while (!current.isLeaf()) {
-							compareResult = newWord.getWord().compareTo(current.getElement().getWord());
-
-							if (compareResult == 0) {
-								BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
-								LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
-								existlocation.add(new Location(inputFileName, lineNumber));
-							}else {
-								BSTreeWord.add(newWord);
-							}
-						}
-//					} catch (Exception e) {
-//						BSTreeWord.add(newWord);
-//					}
-					
-//					if (BSTreeWord.contains(newWord)) {
-//						BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
-//						LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
-//						existlocation.add(new Location(inputFileName, lineNumber));
-//						System.out.println(existlocation.size());
-//					} else {
-//						BSTreeWord.add(newWord);
-//					}
+										
+					if (BSTreeWord.contains(newWord)) {
+						BSTreeNode<Word> existBSTree = BSTreeWord.search(newWord);
+						LinkedList<Location> existlocation = existBSTree.getElement().getLocations();
+						existlocation.add(new Location(inputFileName, lineNumber));
+					} else {
+						BSTreeWord.add(newWord);
+					}
 				
 					wordCount++;
 				}
@@ -188,7 +169,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-15s%s\n", i + 1, word.getWord(), word.getLocations());
+				System.out.printf("%-6d%-15s[File name: %s] [Line number: %s \n", i + 1, word.getWord(), word.getLocations().get(0).getFileName(), word.getLocations());
 			}
 		}else {
 			System.out.println("Print in alphabetic order all words along with the corresponding list of files, numbers of the lines in which the word occur and the frequency of occurrence of the words.");
@@ -196,7 +177,7 @@ public class WordTracker {
 			for (int i = 0; i < BSTreeWord.size(); i++) {
 				Word word = it.next();
 				
-				System.out.printf("%-6d%-15s%s OCCURRENCE: %-3d\n", i + 1, word.getWord(), word.getLocations(), word.getLocations().size());
+				System.out.printf("%-6d%-15s[File name: %s] [Line number: %s [OCCURRENCE: %d]\n", i + 1, word.getWord(), word.getLocations().get(0).getFileName(), word.getLocations(), word.getLocations().size());
 			}
 		}
 		

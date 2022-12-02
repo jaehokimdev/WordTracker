@@ -108,8 +108,12 @@ class BSTreeTest {
 	@Test
 	void testContains() throws TreeException {
 		boolean isThere = myBSTree.contains(10);
+		boolean isThere2 = myBSTree.contains(7);
 		
-		assertEquals(true, isThere);	}
+		assertEquals(true, isThere);	
+		assertEquals(true, isThere2);
+	
+	}
 
 	/**
 	 * Test method for {@link utilities.BSTree#search(java.lang.Comparable)}.

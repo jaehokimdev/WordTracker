@@ -33,7 +33,7 @@ public class Location implements Serializable{
 	}
 	
 	public String toString() {
-		return "File name: " + fileName + "  Line number: " + lineNumber;
+		return " " + lineNumber;
 		
 	}
 }
