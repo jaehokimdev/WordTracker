@@ -17,26 +17,14 @@ import exception.TreeException;
  */
 class BSTreeTest {
 	
-	private BSTree<Integer> myBSTree;
+	private BSTree<String> BSTreeTest;
 
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@BeforeEach
 	void setUp() throws Exception {
-		this.myBSTree = new BSTree<Integer>();
-		
-		myBSTree.add(20);
-		myBSTree.add(10);
-		myBSTree.add(5);
-		myBSTree.add(1);
-		myBSTree.add(7);
-		myBSTree.add(15);
-		myBSTree.add(30);
-		myBSTree.add(25);
-		myBSTree.add(35);
-		myBSTree.add(32);
-		myBSTree.add(40);
+		this.BSTreeTest = new BSTree<String>();
 	}
 
 	/**
@@ -44,7 +32,7 @@ class BSTreeTest {
 	 */
 	@AfterEach
 	void tearDown() throws Exception {
-		myBSTree.clear();
+		BSTreeTest.clear();
 	}
 
 	/**
@@ -53,9 +41,15 @@ class BSTreeTest {
 	 */
 	@Test
 	void testGetRoot() throws TreeException {
-		int root = (int) this.myBSTree.getRoot().getElement();
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+
 		
-		assertEquals(20, root);	
+		String root = (String) this.BSTreeTest.getRoot().getElement();
+		
+		assertEquals("D", root);	
 	}
 
 	/**
@@ -63,9 +57,13 @@ class BSTreeTest {
 	 */
 	@Test
 	void testGetHeight() {
-		int height = this.myBSTree.getHeight();
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		int height = this.BSTreeTest.getHeight();
 		
-		assertEquals(4, height);	
+		assertEquals(3, height);	
 	}
 
 	/**
@@ -73,9 +71,14 @@ class BSTreeTest {
 	 */
 	@Test
 	void testSize() {
-		int size = this.myBSTree.size();
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
+		int size = this.BSTreeTest.size();
 		
-		assertEquals(11, size);	
+		assertEquals(5, size);	
 	}
 
 	/**
@@ -83,10 +86,15 @@ class BSTreeTest {
 	 */
 	@Test
 	void testIsEmpty() {
-		assertEquals(false, myBSTree.isEmpty());
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
+		assertFalse(BSTreeTest.isEmpty());
 		
-		myBSTree.clear();
-		assertEquals(true, myBSTree.isEmpty());	
+		BSTreeTest.clear();
+		assertTrue(BSTreeTest.isEmpty());	
 	}
 
 	/**
@@ -94,9 +102,9 @@ class BSTreeTest {
 	 */
 	@Test
 	void testClear() {
-		myBSTree.clear();
+		BSTreeTest.clear();
 		
-		int size = this.myBSTree.size();
+		int size = this.BSTreeTest.size();
 		
 		assertEquals(0, size);	
 	}
@@ -107,11 +115,16 @@ class BSTreeTest {
 	 */
 	@Test
 	void testContains() throws TreeException {
-		boolean isThere = myBSTree.contains(10);
-		boolean isThere2 = myBSTree.contains(7);
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
+		boolean test = BSTreeTest.contains("A");
+		boolean test2 = BSTreeTest.contains("Q");
 		
-		assertEquals(true, isThere);	
-		assertEquals(true, isThere2);
+		assertTrue(test);	
+		assertFalse(test2);
 	
 	}
 
@@ -121,10 +134,15 @@ class BSTreeTest {
 	 */
 	@Test
 	void testSearch() throws TreeException {
-		BSTreeNode<Integer> searchingNode = myBSTree.search(10);
-		int searchElement = searchingNode.getElement();
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
+		BSTreeNode<String> searchingNode = BSTreeTest.search("A");
+		String searchElement = searchingNode.getElement();
 		
-		assertEquals(10, searchElement);	
+		assertEquals("A", searchElement);	
 	}
 
 	/**
@@ -132,8 +150,13 @@ class BSTreeTest {
 	 */
 	@Test
 	void testAdd() {
-		assertEquals(true, myBSTree.add(300));
-		assertEquals(12, myBSTree.size());
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
+		assertEquals(true, BSTreeTest.add("Q"));
+		assertEquals(6, BSTreeTest.size());
 	}
 
 	/**
@@ -141,11 +164,17 @@ class BSTreeTest {
 	 */
 	@Test
 	void testInorderIterator() {
-		int next;
-		Iterator<Integer> it = myBSTree.inorderIterator();
-		int[] integerArray = new int[] {1, 5, 7, 10, 15, 20, 25, 30, 32, 35, 40};
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
 		
-		for (int i = 0; i < myBSTree.size(); i++)	{
+		String next;
+		Iterator<String> it = BSTreeTest.inorderIterator();
+		String[] integerArray = new String[] {"A", "C", "D", "F", "G"};
+		
+		for (int i = 0; i < BSTreeTest.size(); i++)	{
 			next = it.next();
 			assertEquals(integerArray[i], next);
 		}	
@@ -156,14 +185,20 @@ class BSTreeTest {
 	 */
 	@Test
 	void testPreorderIterator() {
-		int next;
-		Iterator<Integer> it = myBSTree.preorderIterator();
-		int[] integerArray = new int[] {20, 10, 5, 1, 7, 15, 30, 25, 35, 32, 40};
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
 		
-		for (int i = 0; i < myBSTree.size(); i++)	{
+		String next;
+		Iterator<String> it = BSTreeTest.preorderIterator();
+		String[] integerArray = new String[] {"D", "A", "C", "F", "G"};
+		
+		for (int i = 0; i < BSTreeTest.size(); i++)	{
 			next = it.next();
 			assertEquals(integerArray[i], next);
-		}
+		}	
 	}
 
 	/**
@@ -171,11 +206,17 @@ class BSTreeTest {
 	 */
 	@Test
 	void testPostorderIterator() {
-		int next;
-		Iterator<Integer> it = myBSTree.postorderIterator();
-		int[] integerArray = new int[] {1, 7, 5, 15, 10, 25, 32, 40, 35, 30, 20};
+		BSTreeTest.add("D");
+		BSTreeTest.add("A");
+		BSTreeTest.add("C");
+		BSTreeTest.add("F");
+		BSTreeTest.add("G");
 		
-		for (int i = 0; i < myBSTree.size(); i++)	{
+		String next;
+		Iterator<String> it = BSTreeTest.postorderIterator();
+		String[] integerArray = new String[] {"C", "A", "G", "F", "D"};
+		
+		for (int i = 0; i < BSTreeTest.size(); i++)	{
 			next = it.next();
 			assertEquals(integerArray[i], next);
 		}

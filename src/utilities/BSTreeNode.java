@@ -80,19 +80,17 @@ public class BSTreeNode<E> implements Serializable {
 	}
 	
 	public int getHeight() {
-		if (element == null) {
-			return 0;
-		} else if (this.isLeaf()) {
-			return 1;
-		} else {
-			int heightLeft = this.left.getHeight();
-			int heightRight = this.right.getHeight();
-		
-			if (heightLeft > heightRight) {
-				return heightLeft + 1;
-			} else {
-				return heightRight + 1;
-			}
-		}
+		int heightLeft = 0;
+	    int heightRight = 0;
+	    if(left != null)
+	        heightLeft = left.getHeight();
+	    if(right != null)
+	        heightRight = right.getHeight();
+	    if(heightLeft > heightRight){
+	        return heightLeft+1;
+	    }
+	    else{
+	        return heightRight+1;
+	    }
 	}
 }

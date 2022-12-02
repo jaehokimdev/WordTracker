@@ -1,5 +1,6 @@
 package application;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,27 +30,40 @@ public class AppDriver {
 		} else if (args.length == 4 && args[2].equals("-f")) {
 			outputFileName = args[3];
 			
-			File file = new File(outputFileName);
-		    FileOutputStream fos = new FileOutputStream(file);
-		    PrintStream ps = new PrintStream(fos);
-		    System.setOut(ps);
-		    
-			new WordTracker(inputFileName, option, outputFileName);
+			class DualStream extends PrintStream {
+			    public PrintStream consoleOutput = null;
+			    public PrintStream fileOutput = null;
+
+			    public DualStream(final PrintStream consoleOutput, final PrintStream fileOutput) throws FileNotFoundException {
+			        super(fileOutput, true);
+			        this.consoleOutput = consoleOutput;
+			        this.fileOutput = fileOutput;
+			    }
+
+			    @Override
+			    public void println(final String output) {
+			        consoleOutput.println(output);
+			        super.println(output);
+			    }
+
+			    @Override
+			    public PrintStream printf(final String output, final Object... variables) {
+			        consoleOutput.printf(output, variables);
+			        super.printf(output, variables);
+			        return this;
+			    }
+			}
 			
-			PrintStream console = System.out;
-			System.setOut(console);
-			ps.close();
-				        
-	        try {
-	            String str;
-				BufferedReader readFile = new BufferedReader(new FileReader(outputFileName));
-	            
-	            while((str = readFile.readLine()) != null) {
-	                System.out.println(str);
-	            }
-	        } catch(IOException e) {
-	            e.printStackTrace();
-	        }
+			File file = new File(outputFileName);		    
+		    PrintStream CombinedOutput = null;
+		    try {
+		        CombinedOutput = new DualStream(System.out, new PrintStream(new BufferedOutputStream(new FileOutputStream(file))));
+		    } catch (final FileNotFoundException e) {
+		        e.printStackTrace();
+		    }
+		    System.setOut(CombinedOutput);
+			new WordTracker(inputFileName, option, outputFileName);
+							       
 		} else {
 			System.out.println("Input method is invalid. Try again.");
 			System.exit(0);

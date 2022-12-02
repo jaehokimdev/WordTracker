@@ -61,17 +61,15 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 		BSTreeNode<E> current = root;
 		
 		while (current != null) {
-			switch(entry.compareTo(current.getElement())) {
-				case 1:
+			if (entry.compareTo(current.getElement()) > 0) {
 					current = current.getRight();
-					break;
-				case -1:
+			} else if (entry.compareTo(current.getElement()) < 0) {				
 					current = current.getLeft();
-					break;
-				default:
-					return true;
+			} else {
+				return true;
 			}
 		}
+		
 		return false;
 	}
 		
@@ -81,15 +79,12 @@ public class BSTree<E extends Comparable<? super E>> implements BSTreeADT {
 		BSTreeNode<E> current = root;
 		
 		while (current != null) {
-			switch(entry.compareTo(current.getElement())) {
-				case 1:
+			if (entry.compareTo(current.getElement()) > 0) {
 					current = current.getRight();
-					break;
-				case -1:
+			} else if (entry.compareTo(current.getElement()) < 0) {				
 					current = current.getLeft();
-					break;
-				default:
-					return current;
+			} else {
+				return current;
 			}
 		}
 		
