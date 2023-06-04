@@ -1,21 +1,15 @@
-********************************************************************************************************
-********************************************************************************************************
-*******************************************About this program*******************************************
-********************************************************************************************************
-********************************************************************************************************
-
-- This program includes our personal implementation of the following classes
+This program includes our personal implementation of the following classes
 	1.- BSTree.java
 	2.- BSTreeNode.java
 
-- Four interfaces Iterator.java, BSTreeADT are also included. BSTree implements 
+Four interfaces Iterator.java, BSTreeADT are also included. BSTree implements 
 the BSTreeADT interface and the Iterator interface is used to override the repective 
 methods in the BSTree class.
 
-- The proper JUnit testing for BSTree is performed in the following file
+The proper JUnit testing for BSTree is performed in the following file
 	1.- BSTreeTest.java
 
-- For run this application:
+For run this application:
 	java -jar WordTracker.jar <input.txt> -pf/-pl/-po [-f <output.txt>] 
 
 1.  <input.txt> is the path and filename of the text file to be processed by the WordTracker program. 
